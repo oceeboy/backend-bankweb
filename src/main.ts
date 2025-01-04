@@ -11,10 +11,10 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
 
-  app.enableCors({
-    origin: 'http://localhost:3000', // Allow requests from this origin
-    credentials: true, // If you are sending cookies or other credentials
-  });
+  // app.enableCors({
+  //   origin: 'http://localhost:3000', // Allow requests from this origin
+  //   credentials: true, // If you are sending cookies or other credentials
+  // });
 
   await app.listen(3001);
 }
