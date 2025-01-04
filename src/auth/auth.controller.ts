@@ -12,7 +12,7 @@ import { Response } from 'express';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
-import { AuthGuard } from 'src/common/guards/auth.guard';
+import { AuthGuard } from '../common/guards/auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -38,14 +38,8 @@ export class AuthController {
   async getUserData(@Req() req) {
     return await this.authService.getUserData(req.user.sub);
   }
-  @Post('logout')
-  async logout(@Res() res: Response) {
-    res.clearCookie('authToken', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-    });
-
-    return res.status(200).json({ message: 'Logged out successfully' });
+  @Get('logout')
+  async logout() {
+    return 'Logged out successfully';
   }
 }
