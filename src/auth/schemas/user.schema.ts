@@ -3,7 +3,7 @@ import {
   Role,
   AccountStatus,
   CurrencyCode,
-} from 'common/constants/index.enum';
+} from 'src/common/constants/index.enum';
 
 import { Schema, Document } from 'mongoose';
 

@@ -1,7 +1,7 @@
 import {
   TransactionStatus,
   TransactionType,
-} from 'common/constants/index.enum';
+} from 'src/common/constants/index.enum';
 import { Schema, Document, Types } from 'mongoose';
 
 export interface ITransaction extends Document {
