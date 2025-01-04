@@ -13,8 +13,8 @@ import {
 import { TransactionService } from './transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { ITransaction } from './schemas/transaction.schema';
-import { AuthGuard } from 'src/common/guards/auth.guard';
-import { TransactionStatus } from 'src/common/constants/index.enum';
+import { AuthGuard } from '../common/guards/auth.guard';
+import { TransactionStatus } from '../common/constants/index.enum';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 
 @Controller('transaction')

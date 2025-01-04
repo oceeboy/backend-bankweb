@@ -7,9 +7,9 @@ import {
   IsBoolean,
   IsOptional,
 } from 'class-validator';
-import { AccountStatus } from 'src/common/constants/account-status.enum';
-import { CurrencyCode } from 'src/common/constants/currency.enum';
-import { Role } from 'src/common/constants/role.enum';
+import { AccountStatus } from '../../common/constants/account-status.enum';
+import { CurrencyCode } from '../../common/constants/currency.enum';
+import { Role } from '../../common/constants/role.enum';
 
 export class RegisterUserDto {
   @IsString()

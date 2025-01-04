@@ -1,7 +1,7 @@
 import {
   TransactionStatus,
   TransactionType,
-} from 'src/common/constants/index.enum';
+} from '../../common/constants/index.enum';
 import { Types } from 'mongoose';
 import {
   IsEnum,
