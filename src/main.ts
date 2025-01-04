@@ -1,17 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    new FastifyAdapter(),
-  );
-
+  const app = await NestFactory.create(AppModule);
   app.enableCors();
-  await app.listen(3001);
+
+  //Make use of swagger to create doc later ocee
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
