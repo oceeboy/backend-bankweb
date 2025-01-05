@@ -11,7 +11,7 @@ import { UserDocument } from '../auth/schemas/user.schema';
 import {
   TransactionStatus,
   TransactionType,
-} from 'src/common/constants/index.enum';
+} from '../common/constants/index.enum';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 
 @Injectable()

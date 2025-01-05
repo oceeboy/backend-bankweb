@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './schemas/user.schema';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
-import { TransactionModule } from 'src/transaction/transaction.module';
+import { TransactionModule } from '../transaction/transaction.module';
 
 @Module({
   imports: [
