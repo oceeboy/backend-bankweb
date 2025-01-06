@@ -17,20 +17,21 @@ export class AuthGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest<Request>();
-    const authHeader = request.headers['authorization'];
 
+    // Skip guard for preflight OPTIONS requests
+    if (request.method === 'OPTIONS') {
+      return true;
+    }
+
+    const authHeader = request.headers['authorization'];
     if (!authHeader) {
       throw new UnauthorizedException('No authorization header');
     }
 
     const token = authHeader.split(' ')[1]; // Expecting Bearer <token>
-
     try {
-      // Verify the JWT token
       const decoded = this.jwtService.verify(token);
-      request.user = decoded; // Attach the decoded token payload to the request
-
-      // Check if the user has a "user" or "admin" role
+      request.user = decoded;
       return true;
     } catch (error) {
       throw new UnauthorizedException(
