@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { CorsMiddleware } from './middleware/cors.middleware';
+import { ApiController } from './api/api.controller';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { CorsMiddleware } from './middleware/cors.middleware';
     AuthModule,
     TransactionModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, ApiController],
   providers: [AppService],
 })
 export class AppModule {
