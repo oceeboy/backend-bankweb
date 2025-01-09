@@ -1,18 +1,20 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-// import { CorsOptions } from 'cors';
+import * as cors from 'cors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // const corsOptions: CorsOptions = {
-  //   origin: 'http://localhost:3000', // Allow requests from localhost
-  //   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
-  //   allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
-  //   credentials: true, // Allow sending credentials (cookies, Authorization header)
-  // };
   app.setGlobalPrefix('api');
-  // app.enableCors(corsOptions);
-  await app.listen(3001); // Change the port number as per your setup
+  app.use(
+    cors({
+      origin: ['http://localhost:3000', 'https://example.com'], // Allowed origins
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], // Allowed methods
+      allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+      credentials: true, // Allow cookies
+    }),
+  );
+
+  await app.listen(3001);
 }
 bootstrap();

@@ -56,10 +56,7 @@ export class AuthService {
     return accountNumber;
   }
   // Register a new user
-  async register(registerUser: RegisterUserDto): Promise<{
-    accessToken: string;
-    refreshToken: string;
-  }> {
+  async register(registerUser: RegisterUserDto): Promise<any> {
     const {} = registerUser;
     // check if email existing user collection
     const { email, password, ...rest } = registerUser;
@@ -86,7 +83,11 @@ export class AuthService {
     const accessToken = this.generateAccessToken(savedUser);
     const refreshToken = this.generateRefreshToken(savedUser);
 
-    return { accessToken, refreshToken };
+    return {
+      user_details: savedUser,
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    };
   }
 
   // Login user
@@ -106,6 +107,7 @@ export class AuthService {
     const accessToken = this.generateAccessToken(user);
     const refreshToken = this.generateRefreshToken(user);
     return {
+      user_details: user,
       access_token: accessToken,
       refresh_token: refreshToken,
     };

@@ -9,9 +9,9 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsBoolean,
   IsNumber,
   IsDate,
+  // Length,
 } from 'class-validator';
 
 export class CreateTransactionDto {
@@ -31,10 +31,6 @@ export class CreateTransactionDto {
   @IsNotEmpty()
   status: TransactionStatus;
 
-  @IsBoolean()
-  @IsNotEmpty()
-  requiresCode: boolean;
-
   @IsString()
   @IsOptional()
   code?: string;
@@ -50,4 +46,22 @@ export class CreateTransactionDto {
   @IsDate()
   @IsNotEmpty()
   updatedAt: Date;
+
+  // New fields for money transfers in Germany this is a test
+  @IsString()
+  @IsOptional()
+  iban?: string;
+
+  @IsString()
+  @IsOptional()
+  // @Length(8, 11, { message: 'BIC must be either 8 or 11 characters long.' })
+  bic?: string;
+
+  @IsString()
+  @IsOptional()
+  recipientName?: string;
+
+  @IsString()
+  @IsOptional()
+  reference?: string;
 }

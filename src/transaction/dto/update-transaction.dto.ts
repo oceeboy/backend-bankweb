@@ -9,7 +9,6 @@ import {
   IsMongoId,
   IsOptional,
   IsString,
-  IsBoolean,
   IsNumber,
   IsDate,
 } from 'class-validator';
@@ -31,10 +30,6 @@ export class UpdateTransactionDto {
   @IsOptional()
   status?: TransactionStatus;
 
-  @IsBoolean()
-  @IsOptional()
-  requiresCode?: boolean;
-
   @IsString()
   @IsOptional()
   code?: string;
@@ -50,4 +45,21 @@ export class UpdateTransactionDto {
   @IsDate()
   @IsOptional()
   updatedAt?: Date;
+
+  // New fields for money transfers in Germany
+  @IsString()
+  @IsOptional()
+  iban?: string;
+
+  @IsString()
+  @IsOptional()
+  bic?: string;
+
+  @IsString()
+  @IsOptional()
+  recipientName?: string;
+
+  @IsString()
+  @IsOptional()
+  reference?: string;
 }

@@ -14,18 +14,20 @@ import { TransactionService } from './transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { ITransaction } from './schemas/transaction.schema';
 import { AuthGuard } from '../common/guards/auth.guard';
-import { TransactionStatus } from '../common/constants/index.enum';
+import { Role, TransactionStatus } from '../common/constants/index.enum';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { RolesGuard } from '../common/guards/role.guard';
+import { Roles } from '../common/decorators/role.decorator';
 
 @Controller('transaction')
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, RolesGuard)
 export class TransactionController {
   constructor(private transactionService: TransactionService) {}
 
   // create a new transaction
 
   @Post('withdraw')
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin, Role.User)
   async withdrawalRequest(
     @Req() req,
     @Body() transactionDto: CreateTransactionDto,
@@ -43,11 +45,12 @@ export class TransactionController {
   }
 
   @Delete('delete')
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
   async deleteTransaction() {
     return await this.transactionService.deleteAllTransactions();
   }
   @Put(':transactionId/status')
+  @Roles(Role.Admin)
   async updateTransactionStatus(
     @Param('transactionId') transactionId: string,
     @Body('status') status: TransactionStatus,
@@ -64,7 +67,7 @@ export class TransactionController {
   }
 
   @Put(':transactionId/update')
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
   async updateTransaction(
     @Param('transactionId') transactionId: string,
     @Body() updateTransactionDto: UpdateTransactionDto,

@@ -9,11 +9,14 @@ export interface ITransaction extends Document {
   type: TransactionType;
   amount: number;
   status: TransactionStatus;
-  requiresCode: boolean;
+
   code?: string;
   narration: string;
   createdAt: Date;
   updatedAt: Date;
+  iban?: string;
+  bic?: string;
+  recipientName?: string;
 }
 
 export const TransactionSchema = new Schema<ITransaction>({
@@ -36,4 +39,9 @@ export const TransactionSchema = new Schema<ITransaction>({
   narration: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+
+  // Fields specific to money transfer in Germany
+  iban: { type: String }, // International Bank Account Number
+  bic: { type: String }, // Bank Identifier Code
+  recipientName: { type: String }, // Full name of the recipient
 });
