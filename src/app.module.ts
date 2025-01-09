@@ -6,7 +6,6 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { TransactionModule } from './transaction/transaction.module';
 
-import { ApiController } from './api/api.controller';
 import { AdminModule } from './admin/admin.module';
 
 @Module({
@@ -20,7 +19,7 @@ import { AdminModule } from './admin/admin.module';
     TransactionModule,
     AdminModule,
   ],
-  controllers: [AppController, ApiController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

@@ -8,10 +8,10 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.use(
     cors({
-      origin: ['http://localhost:3000', 'https://example.com'], // Allowed origins
-      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], // Allowed methods
-      allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-      credentials: true, // Allow cookies
+      origin: '*', // Allow multiple origins
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      credentials: true,
     }),
   );
 

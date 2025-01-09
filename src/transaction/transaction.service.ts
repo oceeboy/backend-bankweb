@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-  Logger,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -16,8 +15,6 @@ import { CreateTransactionDto } from './dto/create-transaction.dto';
 
 @Injectable()
 export class TransactionService {
-  private readonly logger = new Logger(TransactionService.name);
-
   constructor(
     @InjectModel('Transaction')
     private readonly transactionModel: Model<ITransaction>,
@@ -109,36 +106,28 @@ export class TransactionService {
     const session = await this.userModel.startSession();
     session.startTransaction();
 
-    try {
-      // Update user's balance
-      if (type === TransactionType.DEPOSIT) {
-        user.balance += amount;
-      } else if (type === TransactionType.WITHDRAWAL) {
-        if (user.balance < amount) {
-          throw new BadRequestException('Insufficient funds');
-        }
-        user.balance -= amount;
+    // Update user's balance
+    if (type === TransactionType.DEPOSIT) {
+      user.balance += amount;
+    } else if (type === TransactionType.WITHDRAWAL) {
+      if (user.balance < amount) {
+        throw new BadRequestException('Insufficient funds');
       }
-      await user.save({ session });
-
-      // Create and save the transaction
-      const newTransaction = new this.transactionModel({
-        userId: user._id,
-        ...transactionDto,
-      });
-      await newTransaction.save({ session });
-
-      // Commit transaction
-      await session.commitTransaction();
-
-      return { transaction: newTransaction, balance: user.balance };
-    } catch (error) {
-      await session.abortTransaction();
-      this.logger.error('Transaction failed', error.stack);
-      throw error;
-    } finally {
-      session.endSession();
+      user.balance -= amount;
     }
+    await user.save({ session });
+
+    // Create and save the transaction
+    const newTransaction = new this.transactionModel({
+      userId: user._id,
+      ...transactionDto,
+    });
+    await newTransaction.save({ session });
+
+    // Commit transaction
+    await session.commitTransaction();
+
+    return { transaction: newTransaction, balance: user.balance };
   }
 
   // Get all transactions for a user
